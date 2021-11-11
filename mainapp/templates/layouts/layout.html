@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}
+
+            {% endblock %}
+            | social
+        </title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    </head>
+    <body>
+        <header>
+            <div id="logo">
+                <img src="https://lavastage.com/wp-content/uploads/2021/04/logo-juan-218x82.png" alt="logo">
+                <h1>Crypto stage</h1>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+
+                {% if user.email %}
+                    <li>
+                        <a href="{% url 'list_articles' %}">Categories</a>
+                        <ul>
+                            {% for category in categories %}
+                                <li>
+                                    <a href="{% url 'category' category.0 %}">{{category.1}}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% for page in pages %}
+                        <li>
+                            <a href="{% url 'page' page.2 %}">{{page.1}}</a>
+                        </li>
+                    {% endfor %}
+                    <li>
+                        <a href="{% url 'logout' %}">Log out</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'signup' %}">Sign up</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="bar">
+            <span class="left-corner"></span>
+            <span class="fill-bar"></span>
+            <span class="right-corner"></span>
+        </div>
+
+        <div id="content">
+            <div class="box">
+                {% block content %}
+                    <pre>text injected from layout</pre>
+                {% endblock %}
+            </div>
+        </div>
+
+        <footer>
+            Web by stéreoslógos &copy;
+        </footer>
+    </body>
+</html>

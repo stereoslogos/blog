@@ -1,0 +1,44 @@
+{% extends 'layouts/layout.html' %}
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block content %}
+    <h1  class="title">{{title}}</h1>
+
+    <hr />
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if user.email %}
+        <h2>
+            Welcome, {{request.user.first_name}}
+        </h2>
+        <p>
+            {{user.email}}
+        </p>
+    {% else %}
+        <h2>Login to see more information.</h2>
+
+        <br />
+        <div class="gum-c">
+            <center>
+                <div>
+                    The Global Unity Mural(GUM)
+                </div>
+            <div>
+                G U M DATES HAVE CHANGED" Global Street Art Collab and Competition.
+            </div>
+                <a href="https://lavastage.com/the-mural-that-will-unite-the-world-event/">
+                    <img src="https://lavastage.com/wp-content/uploads/2021/09/LavaStage-202109-image-58.png" name="GUM" />
+                </a>
+        </div>
+
+    {% endif %}
+{% endblock %}
